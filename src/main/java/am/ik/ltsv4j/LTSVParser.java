@@ -187,7 +187,7 @@ public class LTSVParser {
 	 */
 	public Map<String, String> parseLine(String line) {
 		if (line == null) {
-			throw new IllegalArgumentException("line must not be null.");
+			throw new LTSVParseException("line must not be null.");
 		}
 
 		StringTokenizer tokenizer = new StringTokenizer(chomp(line), LTSV.TAB);
