@@ -194,13 +194,13 @@ public class LTSVParser {
 		Map<String, String> result = mapFactory.createMap();
 		while (tokenizer.hasMoreTokens()) {
 			String labeledField = tokenizer.nextToken();
-			String[] values = SEPARATOR_PATTERN.split(labeledField);
-			if (values.length < 2) {
+			String[] values = SEPARATOR_PATTERN.split(labeledField, 2);
+			if (values.length != 2) {
 				throw new LTSVParseException("label and field (" + labeledField
 						+ ") are not separated by " + LTSV.SEPARATOR);
 			}
 			String label = values[0];
-			String field = labeledField.substring(label.length() + 1);
+			String field = values[1];
 
 			if (isStrict) {
 				validateLabel(label);
