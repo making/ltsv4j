@@ -5,14 +5,15 @@ import static org.hamcrest.CoreMatchers.*;
 
 import java.io.File;
 import java.io.StringReader;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class LTSVTest {
+import am.ik.ltsv4j.exception.LTSVParseException;
+
+public class LTSVParserTest {
 
 	@Before
 	public void setUp() throws Exception {
@@ -55,6 +56,38 @@ public class LTSVTest {
 		assertThat(ltsv.get("hoge"), is(nullValue()));
 		assertThat(ltsv.get("bar"), is("baz"));
 		assertThat(LTSV.formatter().formatLine(ltsv), is("bar:baz"));
+	}
+
+	@Test
+	public void testParseLineWithStrict() {
+		Map<String, String> ltsv = LTSV.parser().strict()
+				.parseLine("hoge:foo\tbar:baz\n");
+		assertThat(ltsv.get("hoge"), is("foo"));
+		assertThat(ltsv.get("bar"), is("baz"));
+	}
+
+	@Test
+	public void testParseLineWithStrict2() {
+		Map<String, String> ltsv = LTSV.parser().strict()
+				.parseLine("A_b.0-1:~!@#$%^&*()_+{}[]\\<>?\";\''`|,./");
+		assertThat(ltsv.get("A_b.0-1"), is("~!@#$%^&*()_+{}[]\\<>?\";\''`|,./"));
+	}
+
+	@Test
+	public void testParseLineWithoutStrict() {
+		Map<String, String> ltsv = LTSV.parser().parseLine("^^:ふー\t@@:ばず\n");
+		assertThat(ltsv.get("^^"), is("ふー"));
+		assertThat(ltsv.get("@@"), is("ばず"));
+	}
+
+	@Test(expected = LTSVParseException.class)
+	public void testParseLineWithStrictIlleagalLabel() {
+		LTSV.parser().strict().parseLine("@@:foo\tbar:baz\n");
+	}
+
+	@Test(expected = LTSVParseException.class)
+	public void testParseLineWithStrictIlleagalField() {
+		LTSV.parser().strict().parseLine("hoge:foo\tbar:ばず\n");
 	}
 
 	@Test
@@ -154,14 +187,6 @@ public class LTSVTest {
 			assertThat(iterator.hasNext(), is(false));
 			assertThat(iterator.hasNext(), is(false));
 		}
-	}
-
-	@Test
-	public void testFormat() {
-		Map<String, String> ltsv = new LinkedHashMap<>();
-		ltsv.put("hoge", "foo");
-		ltsv.put("bar", "baz");
-		assertThat(LTSV.formatter().formatLine(ltsv), is("hoge:foo\tbar:baz"));
 	}
 
 }

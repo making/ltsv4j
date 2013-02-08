@@ -36,6 +36,12 @@ public class LTSVParser {
 	private static final Pattern SEPARATOR_PATTERN = Pattern
 			.compile(LTSV.SEPARATOR);
 
+	private static final Pattern LABEL_PATTERN = Pattern
+			.compile("[0-9A-Za-z_\\.\\-]+");
+
+	private static final Pattern FIELD_PATTERN = Pattern
+			.compile("[\u0001-\u0008\u000b\u000c\u000e-\u00ff]*");
+
 	/**
 	 * interface to create map which is an implementation of LTSV line
 	 */
@@ -107,11 +113,10 @@ public class LTSVParser {
 	}
 
 	/**
-	 * @param isStrict
 	 * @return
 	 */
-	public LTSVParser strict(boolean isStrict) {
-		this.isStrict = isStrict;
+	public LTSVParser strict() {
+		this.isStrict = true;
 		return this;
 	}
 
@@ -188,41 +193,45 @@ public class LTSVParser {
 		StringTokenizer tokenizer = new StringTokenizer(chomp(line), LTSV.TAB);
 		Map<String, String> result = mapFactory.createMap();
 		while (tokenizer.hasMoreTokens()) {
-			String labeledValue = tokenizer.nextToken();
-			String[] values = SEPARATOR_PATTERN.split(labeledValue);
+			String labeledField = tokenizer.nextToken();
+			String[] values = SEPARATOR_PATTERN.split(labeledField);
 			if (values.length < 2) {
-				throw new LTSVParseException("label and value (" + labeledValue
+				throw new LTSVParseException("label and field (" + labeledField
 						+ ") are not separated by " + LTSV.SEPARATOR);
 			}
 			String label = values[0];
-			String value = labeledValue.substring(label.length() + 1);
+			String field = labeledField.substring(label.length() + 1);
 
 			if (isStrict) {
 				validateLabel(label);
-				validateValue(value);
+				validateField(field);
 			}
 
 			if ((ignores != null && ignores.contains(label))
 					|| (wants != null && !wants.contains(label))) {
 				continue;
 			}
-			result.put(label, value);
+			result.put(label, field);
 		}
 		return Collections.unmodifiableMap(result);
 	}
 
 	/**
-	 * @param value
+	 * @param field
 	 */
-	private void validateValue(String value) {
-
+	private void validateField(String field) {
+		if (!FIELD_PATTERN.matcher(field).matches()) {
+			throw new LTSVParseException("field(" + field + ") is not valid.");
+		}
 	}
 
 	/**
 	 * @param label
 	 */
 	private void validateLabel(String label) {
-
+		if (!LABEL_PATTERN.matcher(label).matches()) {
+			throw new LTSVParseException("field(" + label + ") is not valid.");
+		}
 	}
 
 	/**

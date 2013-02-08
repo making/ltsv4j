@@ -17,6 +17,15 @@ This library is inspired by https://metacpan.org/module/Text::LTSV.
     List<Map<String, String>> lines = LTSV.parser().parseLines("test.ltsv");
     LTSV.formatter.formatLines(lines, "foo.ltsv");
 
+strict mode
+
+Strictly label must be `%x30-39 / %x41-5A / %x61-7A / "_" / "." / "-"`
+and field must be `%x01-08 / %x0B / %x0C / %x0E-FF`.
+
+By default, parser does not check this rule. To enable this, use strict() method.
+
+    LTSV.parser().strict().parseLine("@@:foo"); => throw LTSVParseException 
+
 ### iterator
 
 test.ltsv
