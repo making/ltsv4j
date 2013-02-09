@@ -1,3 +1,18 @@
+/*
+ * Copyright (C) 2013 Toshiaki Maki <makingx@gmail.com>
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *         http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package am.ik.ltsv4j;
 
 import static org.junit.Assert.*;
@@ -75,9 +90,9 @@ public class LTSVParserTest {
 
 	@Test
 	public void testParseLineWithoutStrict() {
-		Map<String, String> ltsv = LTSV.parser().parseLine("^^:„Åµ„Éº\t@@:„Å∞„Åö\n");
-		assertThat(ltsv.get("^^"), is("„Åµ„Éº"));
-		assertThat(ltsv.get("@@"), is("„Å∞„Åö"));
+		Map<String, String> ltsv = LTSV.parser().parseLine("^^:„?µ„Éº\t@@:„?∞„?ö\n");
+		assertThat(ltsv.get("^^"), is("„?µ„Éº"));
+		assertThat(ltsv.get("@@"), is("„?∞„?ö"));
 	}
 
 	@Test(expected = LTSVParseException.class)
@@ -87,7 +102,7 @@ public class LTSVParserTest {
 
 	@Test(expected = LTSVParseException.class)
 	public void testParseLineWithStrictIlleagalField() {
-		LTSV.parser().strict().parseLine("hoge:foo\tbar:„Å∞„Åö\n");
+		LTSV.parser().strict().parseLine("hoge:foo\tbar:„?∞„?ö\n");
 	}
 
 	@Test
@@ -127,10 +142,10 @@ public class LTSVParserTest {
 		assertThat(ltsv.get(1).get("perl"), is("5.17.8"));
 		assertThat(ltsv.get(1).get("ruby"), is("2.0"));
 		assertThat(ltsv.get(1).get("python"), is("2.6"));
-		assertThat(ltsv.get(2).get("sushi"), is("ÂØøÂè∏"));
-		assertThat(ltsv.get(2).get("tennpura"), is("Â§©„Å∑„Çâ"));
+		assertThat(ltsv.get(2).get("sushi"), is("ÂØøÂ?∏"));
+		assertThat(ltsv.get(2).get("tennpura"), is("Â§©„?∑„Çâ"));
 		assertThat(ltsv.get(2).get("ramen"), is("„É©„Éº„É°„É≥"));
-		assertThat(ltsv.get(2).get("gyoza"), is("È§ÉÂ≠ê"));
+		assertThat(ltsv.get(2).get("gyoza"), is("È§ÉÂ≠?"));
 	}
 
 	@Test

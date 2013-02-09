@@ -16,12 +16,13 @@
 
 	<url>https://github.com/making/ltsv4j</url>
 	<description>Labeled Tab Separated Value(http://ltsv.org/) manipulator for Java</description>
-	
+
 	<developers>
 		<developer>
 			<id>making</id>
 			<name>Toshiaki Maki</name>
 			<email>makingx@gmail.com</email>
+			<url>https://twitter.com/making</url>
 		</developer>
 	</developers>
 
@@ -33,6 +34,21 @@
 				<configuration>
 					<source>1.7</source>
 					<target>1.5</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>com.mycila.maven-license-plugin</groupId>
+				<artifactId>maven-license-plugin</artifactId>
+				<configuration>
+					<header>src/etc/header.txt</header>
+					<strictCheck>true</strictCheck>
+					<headerDefinitions>
+						<headerDefinition>src/etc/header-definition.xml</headerDefinition>
+					</headerDefinitions>
+					<includes>
+						<include>src/**/*.java</include>
+					</includes>
 				</configuration>
 			</plugin>
 		</plugins>
