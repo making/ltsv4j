@@ -63,6 +63,10 @@ Iterator interface is available to read ltsv file
 
 Note that `LTSVIterator` must be closed finally. `LTSVIterator` extends `java.lang.AutoCloseable`, so you can use try-with-resources statement supported from Java7.
 
+## Requirements
+
+* JDK7+
+
 ## License
 
 Licensed under the Apache License, Version 2.0.
