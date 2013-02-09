@@ -90,9 +90,9 @@ public class LTSVParserTest {
 
 	@Test
 	public void testParseLineWithoutStrict() {
-		Map<String, String> ltsv = LTSV.parser().parseLine("^^:ã?µãƒ¼\t@@:ã?°ã?š\n");
-		assertThat(ltsv.get("^^"), is("ã?µãƒ¼"));
-		assertThat(ltsv.get("@@"), is("ã?°ã?š"));
+		Map<String, String> ltsv = LTSV.parser().parseLine("^^:ãµãƒ¼\t@@:ã°ãš\n");
+		assertThat(ltsv.get("^^"), is("ãµãƒ¼"));
+		assertThat(ltsv.get("@@"), is("ã°ãš"));
 	}
 
 	@Test(expected = LTSVParseException.class)
@@ -102,7 +102,7 @@ public class LTSVParserTest {
 
 	@Test(expected = LTSVParseException.class)
 	public void testParseLineWithStrictIlleagalField() {
-		LTSV.parser().strict().parseLine("hoge:foo\tbar:ã?°ã?š\n");
+		LTSV.parser().strict().parseLine("hoge:foo\tbar:ï¿½?ï¿½ï¿½?ï¿½\n");
 	}
 
 	@Test
@@ -142,10 +142,10 @@ public class LTSVParserTest {
 		assertThat(ltsv.get(1).get("perl"), is("5.17.8"));
 		assertThat(ltsv.get(1).get("ruby"), is("2.0"));
 		assertThat(ltsv.get(1).get("python"), is("2.6"));
-		assertThat(ltsv.get(2).get("sushi"), is("å¯¿å?¸"));
-		assertThat(ltsv.get(2).get("tennpura"), is("å¤©ã?·ã‚‰"));
+		assertThat(ltsv.get(2).get("sushi"), is("å¯¿å¸"));
+		assertThat(ltsv.get(2).get("tennpura"), is("å¤©ã·ã‚‰"));
 		assertThat(ltsv.get(2).get("ramen"), is("ãƒ©ãƒ¼ãƒ¡ãƒ³"));
-		assertThat(ltsv.get(2).get("gyoza"), is("é¤ƒå­?"));
+		assertThat(ltsv.get(2).get("gyoza"), is("é¤ƒå­"));
 	}
 
 	@Test
