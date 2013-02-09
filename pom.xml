@@ -10,10 +10,13 @@
 		<license>
 			<name>Apache License, Version 2.0</name>
 			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-			<distribution>manual</distribution>
+			<distribution>repo</distribution>
 		</license>
 	</licenses>
-
+	<scm>
+		<url>git@github.com:making/ltsv4j.git</url>
+		<connection>scm:git:git@github.com:making/ltsv4j.git</connection>
+	</scm>
 	<url>https://github.com/making/ltsv4j</url>
 	<description>Labeled Tab Separated Value(http://ltsv.org/) manipulator for Java</description>
 
@@ -75,6 +78,19 @@
 						<id>attach-javadocs</id>
 						<goals>
 							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
 						</goals>
 					</execution>
 				</executions>
