@@ -63,7 +63,26 @@ Iterator interface is available to read ltsv file
 
 Note that `LTSVIterator` must be closed finally. `LTSVIterator` extends `java.lang.AutoCloseable`, so you can use try-with-resources statement supported from Java7.
 
-## Requirements
+## Use with Maven
+
+    <!-- Here is temporary repository (now requesting to Central Repository) -->
+    <repositories>
+      <repository>
+        <id>sonatype-476</id>
+        <name>Sonatype Repository</name>
+        <url>https://oss.sonatype.org/content/repositories/central_bundles-476/</url>
+      </repository>
+    </repositories>
+    
+    <dependencies>
+      <dependency>
+        <groupId>am.ik.ltsv4j</groupId>
+        <artifactId>ltsv4j</artifactId>
+        <version>0.9.0</version>
+      </dependency>
+    </dependencies>
+
+## Prerequisites
 
 * JDK7+
 
