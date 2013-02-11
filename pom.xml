@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>am.ik.ltsv4j</groupId>
 	<artifactId>ltsv4j</artifactId>
-	<version>0.9.0</version>
+	<version>0.9.1-SNAPSHOT</version>
 	<name>LTSV4J</name>
 
 	<licenses>
