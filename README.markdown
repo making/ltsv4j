@@ -65,15 +65,8 @@ Note that `LTSVIterator` must be closed finally. `LTSVIterator` extends `java.la
 
 ## Use with Maven
 
-    <!-- Here is temporary repository (now requesting to Central Repository) -->
-    <repositories>
-      <repository>
-        <id>sonatype-476</id>
-        <name>Sonatype Repository</name>
-        <url>https://oss.sonatype.org/content/repositories/central_bundles-476/</url>
-      </repository>
-    </repositories>
-    
+you can get this artifact from Maven Central Repository :)
+
     <dependencies>
       <dependency>
         <groupId>am.ik.ltsv4j</groupId>
