@@ -71,10 +71,10 @@
 			<url>http://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
 		</repository>
 		<snapshotRepository>
-			<id>am.ik.ltsv4j</id>
-			<name>LTSV4J Repository</name>
+			<id>sonatype-nexus-snapshot</id>
+			<name>Nexus Snapshot Repository</name>
 			<uniqueVersion>false</uniqueVersion>
-			<url>file:${user.home}/maven2/</url>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
 
